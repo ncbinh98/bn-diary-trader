@@ -78,8 +78,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { navs } from "../_nav";
+import { mapGetters } from "vuex"
+import { navs } from "../_nav"
 export default {
   middleware: ["nuxtInit"],
   data() {
@@ -93,7 +93,7 @@ export default {
       right: true,
       rightDrawer: false,
       title: "Vuetify.js"
-    };
+    }
   },
   computed: {
     ...mapGetters({
@@ -106,26 +106,26 @@ export default {
   watch: {
     error(newValue) {
       if (newValue !== null) {
-        this.snackbar = true;
+        this.snackbar = true
       } else {
-        this.snackbar = false;
+        this.snackbar = false
       }
     },
     success(newValue) {
       if (newValue !== null) {
-        this.snackbar = true;
+        this.snackbar = true
       } else {
-        this.snackbar = false;
+        this.snackbar = false
       }
     }
   },
   methods: {
     switchLocale(payload) {
-      this.$store.dispatch("changeLocale", payload);
-      this.$router.push(this.switchLocalePath(this.locale));
+      this.$store.dispatch("changeLocale", payload)
+      this.$router.push(this.switchLocalePath(this.locale))
     }
   }
-};
+}
 </script>
 
 <style>

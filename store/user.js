@@ -67,7 +67,7 @@ export const actions = {
             }, 3000)
             localStorage.setItem('bn-token', result.data.jwt)
         } catch (error) {
-            console.log(error);
+            console.log(error)
             commit("setLoading", false)
         }
     },

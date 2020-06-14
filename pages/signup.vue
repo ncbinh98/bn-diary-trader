@@ -6,10 +6,10 @@
       </v-card-title>
       <v-card-text>
         <v-form
-          @submit.prevent="validate"
           ref="form"
           v-model="valid"
           lazy-validation
+          @submit.prevent="validate"
         >
           <v-text-field
             v-model="username"
@@ -68,8 +68,8 @@
 </template>
 
 <script>
-import loGet from "lodash/get";
-import { mapGetters } from "vuex";
+import loGet from "lodash/get"
+import { mapGetters } from "vuex"
 export default {
   data() {
     return {
@@ -98,7 +98,7 @@ export default {
         v => !!v || "Password id required",
         v => v === this.password || "Confirm password does not match"
       ]
-    };
+    }
   },
   computed: {
     ...mapGetters({
@@ -108,21 +108,21 @@ export default {
   },
   methods: {
     validate() {
-      const { username, password, email, phone } = this;
+      const { username, password, email, phone } = this
       if (this.$refs.form.validate()) {
         this.$store.dispatch("user/registerUser", {
           username,
           password,
           email,
           phone
-        });
+        })
       }
     },
     reset() {
-      this.$refs.form.reset();
+      this.$refs.form.reset()
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped></style>
