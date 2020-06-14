@@ -1,9 +1,11 @@
 import * as api from "../services/userAPI"
+import { redirectLocale } from '@/utils/utils'
+import { LOCALSTORAGE_TOKEN_NAME } from '@/utils/constants'
 
 export const state = () => ({
     loading: false,
     error: null,
-    user: {}
+    user: null
 })
 
 export const getters = {
@@ -29,14 +31,17 @@ export const mutations = {
 
 export const actions = {
     async me({ state, commit, dispatch }) {
-        try {
-            commit("setLoading", true)
-            const { data } = await api.me(this)
-            commit("setUser", data)
-            commit("setLoading", false)
-        } catch (error) {
-            commit("setLoading", false)
-        }
+        return new Promise(async (resolver, reject) => {
+            try {
+                commit("setLoading", true)
+                const { data } = await api.me(this)
+                commit("setUser", data)
+                commit("setLoading", false)
+                resolver(data)
+            } catch (error) {
+                commit("setLoading", false)
+            }
+        })
     },
 
     async registerUser({ state, commit, dispatch }, payload) {
@@ -60,16 +65,24 @@ export const actions = {
             commit("setLoading", true)
             const result = await api.loginUser(this, payload)
             commit("setLoading", false)
+            commit("setUser", result.data.user)
             this.commit('setSuccess', result.statusText)
             const app = this
             setTimeout(() => {
                 app.commit('setSuccess', null)
             }, 3000)
-            localStorage.setItem('bn-token', result.data.jwt)
+            localStorage.setItem(LOCALSTORAGE_TOKEN_NAME, result.data.jwt)
+            redirectLocale(this.app, 'trades')
         } catch (error) {
-            console.log(error)
             commit("setLoading", false)
         }
     },
+
+    async logoutUser({ state, commit, dispatch }, payload) {
+        localStorage.removeItem(LOCALSTORAGE_TOKEN_NAME)
+        commit('setUser', null)
+        this.$axios.setHeader('Authorization', null)
+        redirectLocale(this.app, 'signin')
+    }
 
 }

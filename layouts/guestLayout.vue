@@ -10,7 +10,7 @@
       <v-list>
         <div v-for="(item, i) in navs" :key="i">
           <v-list-group
-            v-if="item.children && item.auth"
+            v-if="item.children && !item.auth"
             no-action
             :prepend-icon="item.icon"
             value="true"
@@ -30,7 +30,7 @@
             </v-list-item>
           </v-list-group>
           <v-list-item
-            v-if="!item.children && item.auth"
+            v-if="!item.children && !item.auth"
             @click="$router.push(localePath(item.to, locale))"
           >
             <v-list-item-icon>
@@ -53,26 +53,6 @@
           <v-list-item v-for="(item, index) in listLocales" :key="index">
             <v-btn small text @click="switchLocale(item)">
               {{ item }}
-            </v-btn>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-      <v-spacer></v-spacer>
-      <v-menu offset-y>
-        <template v-slot:activator="{ on }">
-          <v-avatar v-on="on" size="36" color="indigo">
-            <v-icon dark>mdi-account-circle</v-icon>
-          </v-avatar>
-        </template>
-        <v-list>
-          <v-list-item>
-            <v-btn
-              @click="handleLogoutBtn"
-              class="pa-0 text-capitalize"
-              small
-              text
-            >
-              Logout
             </v-btn>
           </v-list-item>
         </v-list>
@@ -101,7 +81,7 @@
 import { mapGetters } from "vuex";
 import { navs } from "../_nav";
 export default {
-  middleware: ["nuxtInit", "isNotAuth"],
+  middleware: ["nuxtInit", "isAuth"],
   data() {
     return {
       snackbar: false,
@@ -143,9 +123,6 @@ export default {
     switchLocale(payload) {
       this.$store.dispatch("changeLocale", payload);
       this.$router.push(this.switchLocalePath(this.locale));
-    },
-    handleLogoutBtn() {
-      this.$store.dispatch("user/logoutUser");
     }
   }
 };

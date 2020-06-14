@@ -68,9 +68,10 @@
 </template>
 
 <script>
-import loGet from "lodash/get"
-import { mapGetters } from "vuex"
+import loGet from "lodash/get";
+import { mapGetters } from "vuex";
 export default {
+  layout: "guestLayout",
   data() {
     return {
       valid: true,
@@ -98,7 +99,7 @@ export default {
         v => !!v || "Password id required",
         v => v === this.password || "Confirm password does not match"
       ]
-    }
+    };
   },
   computed: {
     ...mapGetters({
@@ -108,21 +109,21 @@ export default {
   },
   methods: {
     validate() {
-      const { username, password, email, phone } = this
+      const { username, password, email, phone } = this;
       if (this.$refs.form.validate()) {
         this.$store.dispatch("user/registerUser", {
           username,
           password,
           email,
           phone
-        })
+        });
       }
     },
     reset() {
-      this.$refs.form.reset()
+      this.$refs.form.reset();
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped></style>

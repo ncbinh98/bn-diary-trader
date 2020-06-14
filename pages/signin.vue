@@ -43,9 +43,10 @@
 </template>
 
 <script>
-import loGet from "lodash/get"
-import { mapGetters } from "vuex"
+import loGet from "lodash/get";
+import { mapGetters } from "vuex";
 export default {
+  layout: "guestLayout",
   data() {
     return {
       valid: true,
@@ -61,7 +62,7 @@ export default {
           loGet(v, ["length"]) >= 6 ||
           "Password length much be greater than 6 characters"
       ]
-    }
+    };
   },
   computed: {
     ...mapGetters({
@@ -71,19 +72,19 @@ export default {
   },
   methods: {
     validate() {
-      const { password, email } = this
+      const { password, email } = this;
       if (this.$refs.form.validate()) {
         this.$store.dispatch("user/loginUser", {
           password,
           identifier: email
-        })
+        });
       }
     },
     reset() {
-      this.$refs.form.reset()
+      this.$refs.form.reset();
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped></style>

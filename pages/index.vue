@@ -1,7 +1,7 @@
 <template>
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6>
-      <br>
+      <br />
       <div class="text-center">
         <logo />
         <vuetify-logo />
@@ -23,10 +23,11 @@
 </template>
 
 <script>
-import Logo from "~/components/Logo.vue"
-import VuetifyLogo from "~/components/VuetifyLogo.vue"
-import { mapGetters } from "vuex"
+import Logo from "~/components/Logo.vue";
+import VuetifyLogo from "~/components/VuetifyLogo.vue";
+import { mapGetters } from "vuex";
 export default {
+  layout: "guestLayout",
   components: {
     Logo,
     VuetifyLogo
@@ -43,7 +44,7 @@ export default {
           content: "My custom description"
         }
       ]
-    }
+    };
   },
   computed: {
     ...mapGetters({
@@ -53,8 +54,8 @@ export default {
   },
   methods: {
     getTests() {
-      this.$store.dispatch("getTests")
+      this.$store.dispatch("getTests");
     }
   }
-}
+};
 </script>

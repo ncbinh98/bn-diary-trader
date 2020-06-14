@@ -4,6 +4,7 @@
     "welcome": "Welcome",
     "signup": "Register account",
     "signin": "Login",
-    "test": "Test route"
+    "test": "Test route",
+    "trades": "Trade"
   }
 }
