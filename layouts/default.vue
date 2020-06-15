@@ -1,4 +1,4 @@
-<template>
+`<template>
   <v-app dark>
     <v-navigation-drawer
       v-model="drawer"
@@ -57,34 +57,39 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-spacer></v-spacer>
+      <v-spacer />
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
-          <v-avatar v-on="on" size="36" color="indigo">
-            <v-icon dark>mdi-account-circle</v-icon>
-          </v-avatar>
+          <div class="hover-pointer" v-on="on">
+            <v-avatar size="36" color="indigo">
+              <v-icon dark>
+                mdi-account-circle
+              </v-icon>
+            </v-avatar>
+            <span>{{ user.username }}</span>
+          </div>
         </template>
-        <v-list>
-          <v-list-item>
+        <v-list class="pa-0">
+          <v-list-item class="pa-0 pl-1 pr-1">
             <v-btn
-              @click="handleLogoutBtn"
               class="pa-0 text-capitalize"
               small
               text
+              @click="handleLogoutBtn"
             >
-              Logout
+              <v-icon>mdi-logout</v-icon> Logout
             </v-btn>
           </v-list-item>
         </v-list>
       </v-menu>
     </v-app-bar>
     <v-main>
-      <v-container>
+      <v-container-fluid>
         <nuxt />
-      </v-container>
+      </v-container-fluid>
     </v-main>
     <v-footer :fixed="fixed" app>
-      <span>&copy; Binh Nguyen 2020 </span>
+      <span>&copy; {{ AUTHOR_NAME }} </span>
     </v-footer>
     <v-snackbar
       v-model="snackbar"
@@ -98,12 +103,14 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { navs } from "../_nav";
+import { AUTHOR_NAME } from '../utils/constants'
+import { mapGetters } from "vuex"
+import { navs } from "../_nav"
 export default {
   middleware: ["nuxtInit", "isNotAuth"],
   data() {
     return {
+      AUTHOR_NAME: AUTHOR_NAME,
       snackbar: false,
       clipped: false,
       drawer: false,
@@ -112,47 +119,52 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: "Vuetify.js"
-    };
+      title: "Vuetify.js",
+    }
   },
   computed: {
     ...mapGetters({
       locale: "getLocale",
       listLocales: "getListLocales",
       error: "getError",
-      success: "getSuccess"
+      success: "getSuccess",
+      user: 'user/getUser'
     })
   },
   watch: {
     error(newValue) {
       if (newValue !== null) {
-        this.snackbar = true;
+        this.snackbar = true
       } else {
-        this.snackbar = false;
+        this.snackbar = false
       }
     },
     success(newValue) {
       if (newValue !== null) {
-        this.snackbar = true;
+        this.snackbar = true
       } else {
-        this.snackbar = false;
+        this.snackbar = false
       }
     }
   },
   methods: {
     switchLocale(payload) {
-      this.$store.dispatch("changeLocale", payload);
-      this.$router.push(this.switchLocalePath(this.locale));
+      this.$store.dispatch("changeLocale", payload)
+      this.$router.push(this.switchLocalePath(this.locale))
     },
     handleLogoutBtn() {
-      this.$store.dispatch("user/logoutUser");
+      this.$store.dispatch("user/logoutUser")
     }
   }
-};
+}
 </script>
 
 <style>
 button:focus {
   outline: none;
+}
+
+.hover-pointer:hover{
+  cursor: pointer;
 }
 </style>
