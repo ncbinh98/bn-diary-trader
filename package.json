@@ -6,6 +6,7 @@
     "private": true,
     "scripts": {
         "dev": "env-cmd -f ./config/dev.env nuxt",
+        "staging": "env-cmd -f ./config/product.env nuxt -p 5001",
         "build": "env-cmd -f ./config/product.env nuxt build",
         "start": "env-cmd -f ./config/product.env nuxt start",
         "generate": "nuxt generate",
