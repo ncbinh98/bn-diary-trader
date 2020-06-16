@@ -71,7 +71,9 @@ export const actions = {
             setTimeout(() => {
                 app.commit('setSuccess', null)
             }, 3000)
-            localStorage.setItem(LOCALSTORAGE_TOKEN_NAME, result.data.jwt)
+            const { jwt } = result.data
+            localStorage.setItem(LOCALSTORAGE_TOKEN_NAME, jwt)
+            this.$axios.setHeader('Authorization', 'Bearer ' + jwt)
             redirectLocale(this.app, 'trades')
         } catch (error) {
             commit("setLoading", false)

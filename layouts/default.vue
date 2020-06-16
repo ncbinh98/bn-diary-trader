@@ -84,9 +84,9 @@
       </v-menu>
     </v-app-bar>
     <v-main>
-      <v-container-fluid>
+      <v-container fluid>
         <nuxt />
-      </v-container-fluid>
+      </v-container>
     </v-main>
     <v-footer :fixed="fixed" app>
       <span>&copy; {{ AUTHOR_NAME }} </span>

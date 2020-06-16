@@ -1,6 +1,6 @@
 <template>
-  <div class="ma-3">
-    <v-data-table :headers="headers" :items="trades" class="elevation-1" :height="350">
+  <div>
+    <!-- <v-data-table :headers="headers" :items="trades" class="elevation-1" :height="350">
       <template v-slot:item.id="{ value }">
         <span>{{ tradeIndex(value) + 1 }}</span>
       </template>
@@ -13,7 +13,49 @@
       <template v-slot:item.market="{ value }">
         <span>{{ marketDisplay(value) }}</span>
       </template>
-    </v-data-table>
+    </v-data-table> -->
+    <v-row>
+      <v-col 
+        v-for="trade in trades"
+        :key="trade.id"
+        cols="12"
+        :md="4"
+      >
+        <v-card max-width="400">
+          <v-img
+            class="white--text align-end"
+            height="200px"
+            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+          />
+          <v-card-title>
+            <v-chip class="text-capitalize" dark :color="orderColor[trade.order]">
+              {{ trade.order }}
+            </v-chip>
+          </v-card-title>
+          <v-card-text class="text--primary">
+            <div>Whitehaven Beach</div>
+
+            <div>Whitsunday Island, Whitsunday Islands</div>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-btn
+              color="orange"
+              text
+            >
+              Share
+            </v-btn>
+
+            <v-btn
+              color="orange"
+              text
+            >
+              Explore
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
